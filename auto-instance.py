@@ -86,3 +86,29 @@ sleep(4.2)
 comment.click()
 
 sleep(1.2)
+
+# find the link list
+elements = driver.find_elements(By.CSS_SELECTOR, '.B3AsdZT9')
+print(f'elements count:', len(elements))
+
+# 遍历元素列表，检查元素的HTML中是否包含特定字符串
+specific_string = 'MS4'
+filtered_elements = [element for element in elements if specific_string in element.get_attribute('outerHTML')]
+
+# 对筛选后的元素列表进行操作
+for element in filtered_elements:
+    print(element.get_attribute('outerHTML'))  # 或者任何你需要对元素进行的操作
+
+# 获取第一个元素
+first_element = filtered_elements[0] if elements else None
+print(f'first_element:', first_element.get_attribute('outerHTML'))
+
+# sec = elements[10] if elements else None
+# print(f'sec:', sec.get_attribute('outerHTML'))
+
+# 对第一个元素执行操作，比如点击
+sleep(1.1)
+# save current window
+target_window = driver.current_window_handle
+
+first_element.click()
