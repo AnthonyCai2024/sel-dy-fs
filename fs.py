@@ -20,7 +20,7 @@ print(driver.current_url)
 # elem.send_keys('seleniumhq' + Keys.RETURN)
 
 # sleep(5)  # Let the page load, will be added to the API
-sleep(2)
+sleep(100)
 
 # <li class="web-login-tab-list__item web-login-tab-list__item__active" tabindex="0"
 # aria-label="扫码登录" role="tab" aria-selected="true">扫码登录</li>
@@ -31,12 +31,12 @@ sleep(2)
 # print(f'search:', search)
 
 # class
-element = driver.find_element(By.CSS_SELECTOR, '.web-login-tab-list__item__active')
-print(f'element:', element)
-
-# li
-li = driver.find_element(By.CSS_SELECTOR, 'li[aria-label="扫码登录"]')
-print(f'li:', li)
+# element = driver.find_element(By.CSS_SELECTOR, '.web-login-tab-list__item__active')
+# print(f'element:', element)
+#
+# # li
+# li = driver.find_element(By.CSS_SELECTOR, 'li[aria-label="扫码登录"]')
+# print(f'li:', li)
 
 # xpath
 # search = driver.find_element(By.XPATH, '//input[@name="wd"]')
@@ -45,13 +45,12 @@ print(f'li:', li)
 # driver.close()
 
 # find the close button
-close = driver.find_element(By.CLASS_NAME, 'dy-account-close')
-print(f'close:', close)
-close.click()
+# 1
 
 # find search box
 search = driver.find_element(By.CSS_SELECTOR, '.st2xnJtZ.YIde9aUh')
 print(f'search:', search)
+sleep(1.1)
 
 # send text
 search.send_keys('计划粉丝一千万')
@@ -89,7 +88,7 @@ sleep(0.9)
 verify_text = driver.find_element(By.CSS_SELECTOR, '.dC4GYZQ1')
 print('verify_text:', verify_text)
 
-sleep(0.3)
+sleep(2)
 # find comment area
 comment = driver.find_element(By.CSS_SELECTOR, '.tzVl3l7w')
 print(f'comment:', comment)
@@ -99,6 +98,12 @@ search_window = driver.current_window_handle
 sleep(5)
 # click comment area
 comment.click()
+
+sleep(1.2)
+
+# find the link list
+link_list = driver.find_elements(By.CSS_SELECTOR, '.B3AsdZT9')
+print(f'link_list:', link_list)
 
 sleep(1.1)
 
