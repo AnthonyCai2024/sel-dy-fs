@@ -1,6 +1,7 @@
 from time import sleep
 
 from selenium import webdriver
+from selenium.common import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -95,12 +96,32 @@ print(f'elements count:', len(elements))
 specific_string = 'MS4'
 filtered_elements = [element for element in elements if specific_string in element.get_attribute('outerHTML')]
 
+# 使用字典来存储已经添加的name，确保唯一性
+# 字典的键是name，值是相应的字典（第一次出现的）
+unique_hrefs = {}
+
 # 对筛选后的元素列表进行操作
 for element in filtered_elements:
-    print(element.get_attribute('outerHTML'))  # 或者任何你需要对元素进行的操作
+    # print(element.get_attribute('outerHTML'))  # 或者任何你需要对元素进行的操作
+    try:
+        href = element.get_attribute('href')
+        # print('href:', href)
+
+        if href not in unique_hrefs:
+            unique_hrefs[href] = element
+
+    except NoSuchElementException:
+        print('No href found inside this ')
+
+# 打印字典的值
+for value in unique_hrefs.values():
+    print(value.get_attribute('outerHTML'))
+
+# 获取字典的值集合，这些是唯一的元素
+filtered_unique_items = list(unique_hrefs.values())
 
 # 获取第一个元素
-first_element = filtered_elements[0] if elements else None
+first_element = filtered_unique_items[0] if elements else None
 print(f'first_element:', first_element.get_attribute('outerHTML'))
 
 # sec = elements[10] if elements else None
@@ -112,3 +133,15 @@ sleep(1.1)
 target_window = driver.current_window_handle
 
 first_element.click()
+
+sleep(3.1)
+# 遍历所有窗口句柄，切换到最新的窗口
+for window_handle in driver.window_handles:
+    driver.switch_to.window(window_handle)
+
+sleep(1.1)
+
+button = driver.find_element(By.CSS_SELECTOR, 'button[data-e2e="user-info-follow-btn"][type="button"]')
+print(f'button:', button.get_attribute('outerHTML'))
+sleep(1.3)
+button.click()
