@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
-url = 'https://www.douyin.com/user/MS4wLjABAAAADYK2_uBpwAV95OZRAnjeGRP0iu7PCW1PdaJTcKQrgOBwJWdExP9fJkIr8a56Aeg7'
+url = 'https://www.douyin.com/user/MS4wLjABAAAAorIGeZoyVuLkg2xIcJidMgftG_ECqbrw5BUX0UsLc5A'
 
 chrome_options = Options()
 chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
