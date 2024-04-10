@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
 
 chrome_options = Options()
 chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
@@ -55,3 +57,32 @@ for window_handle in driver.window_handles:
         break
 
 sleep(5)
+
+# 等待新页面的 综合 选项出现
+element = WebDriverWait(driver, 10).until(
+    expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".qwx22yjn"))
+)
+
+# 现在可以对新页面进行操作
+zh = driver.find_element(By.CSS_SELECTOR, '.qwx22yjn')
+print(f'zh:', zh)
+sleep(1.3)
+zh.click()
+
+sleep(1.2)
+
+verify_text = driver.find_element(By.CSS_SELECTOR, '.tzVl3l7w')
+print('verify_text:', verify_text)
+
+sleep(2)
+# find comment area
+comment = driver.find_element(By.CSS_SELECTOR, '.tzVl3l7w')
+print(f'comment:', comment)
+
+# save current window
+search_window = driver.current_window_handle
+sleep(5)
+# click comment area
+comment.click()
+
+sleep(1.2)
