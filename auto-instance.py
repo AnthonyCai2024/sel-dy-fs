@@ -74,14 +74,14 @@ sleep(1.2)
 verify_text = driver.find_element(By.CSS_SELECTOR, '.tzVl3l7w')
 print('verify_text:', verify_text)
 
-sleep(2)
+sleep(1.9)
 # find comment area
 comment = driver.find_element(By.CSS_SELECTOR, '.tzVl3l7w')
 print(f'comment:', comment)
 
 # save current window
 search_window = driver.current_window_handle
-sleep(5)
+sleep(4.2)
 # click comment area
 comment.click()
 
