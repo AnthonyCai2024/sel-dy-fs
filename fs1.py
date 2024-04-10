@@ -2,12 +2,21 @@
 from time import sleep
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
-# 创建 Chrome 浏览器驱动程序实例
-driver = webdriver.Chrome()
+# # 创建 Chrome 浏览器驱动程序实例
+# driver = webdriver.Chrome()
+
+chrome_options = Options()
+chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
+chrome_driver_path = "D:\\data\\chrome\\chrome-win64\\chrome-win64\\chrome.exe"
+
+# 创建 Chrome 浏览器驱动程序实例, 通过指定 chromedriver 的路径
+driver = webdriver.Chrome(service=Service(chrome_driver_path), options=chrome_options)
 
 driver.get('https://www.douyin.com/')
 # driver.get('https://www.baidu.com/')
@@ -20,7 +29,7 @@ print(driver.current_url)
 # elem.send_keys('seleniumhq' + Keys.RETURN)
 
 # sleep(5)  # Let the page load, will be added to the API
-sleep(100)
+sleep(3)
 
 # <li class="web-login-tab-list__item web-login-tab-list__item__active" tabindex="0"
 # aria-label="扫码登录" role="tab" aria-selected="true">扫码登录</li>
