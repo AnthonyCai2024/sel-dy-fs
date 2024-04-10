@@ -84,9 +84,26 @@ element = WebDriverWait(driver, 10).until(
 # search = driver.find_element(By.CSS_SELECTOR, '.st2xnJtZ.YIde9aUh')
 # print(f'search2:', search)
 
-sleep(3)
+sleep(0.9)
 
 verify_text = driver.find_element(By.CSS_SELECTOR, '.dC4GYZQ1')
 print('verify_text:', verify_text)
 
+sleep(0.3)
+# find comment area
+comment = driver.find_element(By.CSS_SELECTOR, '.tzVl3l7w')
+print(f'comment:', comment)
 
+# save current window
+search_window = driver.current_window_handle
+sleep(5)
+# click comment area
+comment.click()
+
+sleep(1.1)
+
+# # 必须要先切换到新的窗口，才能对新的页面进行操作
+# for window_handle in driver.window_handles:
+#     if window_handle != main_window:
+#         driver.switch_to.window(window_handle)
+#         break
