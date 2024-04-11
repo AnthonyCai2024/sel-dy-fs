@@ -1,3 +1,4 @@
+import random
 from time import sleep
 
 from selenium import webdriver
@@ -7,6 +8,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
+
+# 定义关注次数,随机6-10
+count_gz = random.randint(6, 11)
 
 chrome_options = Options()
 chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
@@ -120,49 +124,65 @@ for value in unique_hrefs.values():
 # 获取字典的值集合，这些是唯一的元素
 filtered_unique_items = list(unique_hrefs.values())
 
-# 获取第二个元素,第一个固定是同一个人,不能使用
-first_element = filtered_unique_items[1] if elements else None
-print(f'first_element:', first_element.get_attribute('outerHTML'))
+# 定义起始索引
+index = 1
 
-# sec = elements[10] if elements else None
-# print(f'sec:', sec.get_attribute('outerHTML'))
+# 遍历唯一元素列表
+for item in filtered_unique_items:
+    index += 1
+    print(f'index:', index)
 
-# 对第一个元素执行操作，比如点击
-sleep(1.1)
-# save current window
-target_window = driver.current_window_handle
+    if index > count_gz:
+        print(f'已经关注了{count_gz}个用户,程序退出!')
+        break
+    if index > 1:
+        print(f'程序开始关注:', item.get_attribute('outerHTML'))
+    else:
+        print(f'程序跳过第一个关注:')
+        continue
 
-first_element.click()
+    # 获取第二个元素,第一个固定是同一个人,不能使用
+    # first_element = filtered_unique_items[1] if elements else None
+    first_element = item if elements else None
+    print(f'first_element:', first_element.get_attribute('outerHTML'))
 
-sleep(3.1)
-# 遍历所有窗口句柄，切换到最新的窗口
-for window_handle in driver.window_handles:
-    driver.switch_to.window(window_handle)
+    # sec = elements[10] if elements else None
+    # print(f'sec:', sec.get_attribute('outerHTML'))
 
-sleep(1.1)
+    # 对第一个元素执行操作，比如点击
+    sleep(1.1)
+    # save current window
+    target_window = driver.current_window_handle
 
-button = driver.find_element(By.CSS_SELECTOR, 'button[data-e2e="user-info-follow-btn"][type="button"]')
-button_html = button.get_attribute('outerHTML')
-print(f'button:', button.get_attribute('outerHTML'))
+    first_element.click()
 
-sleep(1.3)
+    sleep(3.1)
+    # 遍历所有窗口句柄，切换到最新的窗口
+    for window_handle in driver.window_handles:
+        driver.switch_to.window(window_handle)
 
-if '已关注' in button_html:
-    print('已关注,不需再次点击')
-else:
-    driver.execute_script("arguments[0].click();", button)
+    sleep(1.1)
 
-sleep(0.9)
-# 关闭当前标签页
-driver.close()
+    button = driver.find_element(By.CSS_SELECTOR, 'button[data-e2e="user-info-follow-btn"][type="button"]')
+    button_html = button.get_attribute('outerHTML')
+    print(f'button:', button.get_attribute('outerHTML'))
 
-# 关闭当前窗口
-# 获取当前所有打开的标签页的句柄
-handles = driver.window_handles
+    sleep(1.3)
 
-handle_count = len(handles)
+    if '已关注' in button_html:
+        print('已关注,不需再次点击')
+    else:
+        driver.execute_script("arguments[0].click();", button)
 
-# 切换到新打开的标签页
-driver.switch_to.window(handles[handle_count - 1])
+    sleep(0.9)
+    # 关闭当前标签页
+    driver.close()
 
-# 在这里你可以执行对新标签页的操作
+    # 关闭当前窗口
+    # 获取当前所有打开的标签页的句柄
+    handles = driver.window_handles
+
+    handle_count = len(handles)
+
+    # 切换到新打开的标签页
+    driver.switch_to.window(handles[handle_count - 1])
