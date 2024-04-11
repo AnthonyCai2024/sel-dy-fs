@@ -151,3 +151,18 @@ if '已关注' in button_html:
     print('已关注,不需再次点击')
 else:
     driver.execute_script("arguments[0].click();", button)
+
+sleep(0.9)
+# 关闭当前标签页
+driver.close()
+
+# 关闭当前窗口
+# 获取当前所有打开的标签页的句柄
+handles = driver.window_handles
+
+handle_count = len(handles)
+
+# 切换到新打开的标签页
+driver.switch_to.window(handles[handle_count - 1])
+
+# 在这里你可以执行对新标签页的操作
