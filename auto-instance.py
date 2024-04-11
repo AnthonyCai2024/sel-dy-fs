@@ -120,8 +120,8 @@ for value in unique_hrefs.values():
 # 获取字典的值集合，这些是唯一的元素
 filtered_unique_items = list(unique_hrefs.values())
 
-# 获取第一个元素
-first_element = filtered_unique_items[0] if elements else None
+# 获取第二个元素,第一个固定是同一个人,不能使用
+first_element = filtered_unique_items[1] if elements else None
 print(f'first_element:', first_element.get_attribute('outerHTML'))
 
 # sec = elements[10] if elements else None
@@ -142,6 +142,12 @@ for window_handle in driver.window_handles:
 sleep(1.1)
 
 button = driver.find_element(By.CSS_SELECTOR, 'button[data-e2e="user-info-follow-btn"][type="button"]')
+button_html = button.get_attribute('outerHTML')
 print(f'button:', button.get_attribute('outerHTML'))
+
 sleep(1.3)
-driver.execute_script("arguments[0].click();", button)
+
+if '已关注' in button_html:
+    print('已关注,不需再次点击')
+else:
+    driver.execute_script("arguments[0].click();", button)
