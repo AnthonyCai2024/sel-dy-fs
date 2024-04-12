@@ -1,0 +1,2 @@
+class JsHelper:
+    pass

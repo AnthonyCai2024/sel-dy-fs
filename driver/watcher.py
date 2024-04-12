@@ -1,4 +1,6 @@
-from selenium.common import NoSuchElementException
+from time import sleep
+
+from driver.web_driver import WebDriver
 
 
 class Watcher:
@@ -26,13 +28,9 @@ class Watcher:
                 if href not in unique_hrefs:
                     unique_hrefs[href] = element
 
-            except NoSuchElementException:
-                print('No href found inside this ')
+            except Exception as e:
+                print(f'No href found inside this,', e)
                 continue
-
-        # 打印字典的值
-        for value in unique_hrefs.values():
-            print(value.get_attribute('outerHTML'))
 
         # 获取字典的值集合，这些是唯一的元素
         filtered_unique_items = list(unique_hrefs.values())
@@ -41,3 +39,61 @@ class Watcher:
             raise Exception('No valid user found!')
 
         return filtered_unique_items
+
+    @staticmethod
+    def follow_user(web_driver: WebDriver, filtered_unique_items, max_count):
+        # 定义起始索引,第一个是自己,不用关注
+        index = 0
+
+        # 遍历唯一元素列表
+        for element in filtered_unique_items:
+            index += 1
+            print(f'index++:', index)
+
+            if index > max_count:
+                print(f'已经关注了{max_count}个用户,程序退出!')
+                break
+            # elif index > 1:
+            #     print(f'程序开始关注!')
+            # else:
+            #     print(f'程序跳过第一个关注:')
+            #     continue
+
+            try:
+                # 对第一个元素执行操作，比如点击
+
+                print(f'element:', element.get_attribute('outerHTML'))
+                element.click()
+
+                sleep(2.6)
+                web_driver.switch_to_latest_window()
+
+                sleep(0.6)
+
+                button = web_driver.find_element('button[data-e2e="user-info-follow-btn"][type="button"]')
+                button_html = button.get_attribute('outerHTML')
+            except Exception as e:
+                print(f'No button found inside this,', e)
+                web_driver.close_switch_to_main_window()
+                continue
+
+            sleep(0.3)
+
+            if '已关注' in button_html:
+                print('已关注,不需再次点击')
+            else:
+                web_driver.execute_click(button)
+
+            sleep(0.9)
+
+            # 关闭当前标签页
+            web_driver.close()
+
+            # # 关闭当前窗口
+            # # 获取当前所有打开的标签页的句柄
+            # handles = driver.window_handles
+            #
+            # handle_count = len(handles)
+            #
+            # # 切换到新打开的标签页
+            # driver.switch_to.window(handles[handle_count - 1])

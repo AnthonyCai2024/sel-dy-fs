@@ -1,6 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+
+from models.config import Config
 
 
 class WebDriver:
@@ -26,8 +29,28 @@ class WebDriver:
         print(self.driver.title)
         print(self.driver.current_url)
 
-    def find_element(self, by, value):
+    def find_element(self, value, by=By.CSS_SELECTOR):
         return self.driver.find_element(by, value)
 
-    def find_elements(self, by, value):
+    def find_elements(self, value, by=By.CSS_SELECTOR):
         return self.driver.find_elements(by, value)
+
+    def switch_to_latest_window(self):
+        # 遍历所有窗口句柄，切换到最新的窗口
+        for window_handle in self.driver.window_handles:
+            self.driver.switch_to.window(window_handle)
+
+    # switch to main window
+    def close_switch_to_main_window(self):
+        if len(self.driver.window_handles) > 1:
+            self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
+
+    def execute_script(self, script, *args):
+        self.driver.execute_script(script, *args)
+
+    def execute_click(self, element):
+        self.execute_script(Config.JsScript.Click, element)
+
+    def close(self):
+        self.driver.close()
