@@ -1,3 +1,5 @@
+from time import sleep
+
 from driver.watcher import Watcher
 from driver.web_driver import WebDriver
 from models.config import Config
@@ -14,7 +16,9 @@ if __name__ == '__main__':
     # get url
     web_driver.get_url(url)
 
+    sleep(2)
     # todo scroll down
+    web_driver.scroll_down()
 
     # find all watch list
     elements = web_driver.find_elements(Config.Watch.WATCH_LIST_SELECTOR)

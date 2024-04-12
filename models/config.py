@@ -4,5 +4,5 @@ class Config:
         USER_LINK_PATTERN = 'https://www.zhihu.com/people/.*'
 
     class JsScript:
-        SCROLL_DOWN = "window.scrollTo(0, document.body.scrollHeight);"
+        SCROLL_DOWN = "window.scrollBy(0, 100);"
         Click = "arguments[0].click();"

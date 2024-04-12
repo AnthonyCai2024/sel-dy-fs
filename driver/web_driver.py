@@ -1,4 +1,7 @@
+import time
+
 from selenium import webdriver
+from selenium.webdriver import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -54,3 +57,20 @@ class WebDriver:
     def close_current_tab(self):
         if len(self.driver.window_handles) > 1:
             self.driver.close()
+
+    # scroll down
+    def scroll_down(self):
+        # self.execute_script(Config.JsScript.SCROLL_DOWN)
+        # 使用 JavaScript 滚动页面
+        self.driver.execute_script("window.scrollBy(0, 1000);")  # 修改数字以滚动不同的高度
+        # 等待页面加载（根据需要调整时间）
+        time.sleep(0.7)
+
+    def page_down(self):
+        # 获取网页的 body 部分
+        body = self.driver.find_element(By.TAG_NAME, 'body')
+
+        # 通过发送 Page Down 按键模拟滚动
+        for _ in range(3):  # 调整范围以满足你的需要
+            body.send_keys(Keys.PAGE_DOWN)
+            time.sleep(1)  # 等待页面加载
