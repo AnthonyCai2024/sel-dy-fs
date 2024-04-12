@@ -25,3 +25,9 @@ class WebDriver:
 
         print(self.driver.title)
         print(self.driver.current_url)
+
+    def find_element(self, by, value):
+        return self.driver.find_element(by, value)
+
+    def find_elements(self, by, value):
+        return self.driver.find_elements(by, value)
