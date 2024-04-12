@@ -9,6 +9,6 @@ def find(text) -> str:
         url = match.group(0)
         print("URL match:", url)
         return url
-    else:
-        print("未找到URL")
-        return ""
+
+    # raise exception
+    raise Exception("URL not found,请使用双引号包裹URL地址")
