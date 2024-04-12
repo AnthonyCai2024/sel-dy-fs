@@ -11,6 +11,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 # 定义关注次数,随机6-10
 count_gz = random.randint(6, 11)
+print(f'本次关注次数:{count_gz}')
 
 chrome_options = Options()
 chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
