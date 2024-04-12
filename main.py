@@ -18,7 +18,19 @@ if __name__ == '__main__':
 
     sleep(2)
     # todo scroll down
-    web_driver.scroll_down()
+    web_driver.page_down()
+
+    sleep(0.6)
+
+    web_driver.page_down()
+
+    sleep(0.6)
+
+    web_driver.page_down()
+
+    sleep(0.6)
+
+    web_driver.page_down()
 
     # find all watch list
     elements = web_driver.find_elements(Config.Watch.WATCH_LIST_SELECTOR)
