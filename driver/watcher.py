@@ -5,7 +5,7 @@ from driver.web_driver import WebDriver
 
 class Watcher:
     @staticmethod
-    def filter_valid_user(elements) -> list:
+    def filter_valid_user(elements) -> dict:
         print(f'elements count:', len(elements))
         if len(elements) == 0:
             raise Exception('No user elements found!')
@@ -23,8 +23,6 @@ class Watcher:
             # print(element.get_attribute('outerHTML'))  # 或者任何你需要对元素进行的操作
             try:
                 href = element.get_attribute('href')
-                # print('href:', href)
-
                 if href not in unique_hrefs:
                     unique_hrefs[href] = element
 
@@ -32,21 +30,15 @@ class Watcher:
                 print(f'No href found inside this,', e)
                 continue
 
-        # 获取字典的值集合，这些是唯一的元素
-        filtered_unique_items = list(unique_hrefs.values())
-
-        if len(filtered_unique_items) == 0:
-            raise Exception('No valid user found!')
-
-        return filtered_unique_items
+        return unique_hrefs
 
     @staticmethod
-    def follow_user(web_driver: WebDriver, filtered_unique_items, max_count):
+    def follow_user(web_driver: WebDriver, filtered_dict, max_count):
         # 定义起始索引,第一个是自己,不用关注
         index = 0
 
         # 遍历唯一元素列表
-        for element in filtered_unique_items:
+        for key, element in filtered_dict.items():
             index += 1
             print(f'index++:', index)
 
@@ -62,13 +54,12 @@ class Watcher:
             try:
                 # 对第一个元素执行操作，比如点击
 
+                print(f'key:', key)
                 print(f'element:', element.get_attribute('outerHTML'))
                 element.click()
 
                 sleep(2.6)
                 web_driver.switch_to_latest_window()
-
-                sleep(0.6)
 
                 button = web_driver.find_element('button[data-e2e="user-info-follow-btn"][type="button"]')
                 button_html = button.get_attribute('outerHTML')
@@ -87,7 +78,7 @@ class Watcher:
             sleep(0.9)
 
             # 关闭当前标签页
-            web_driver.close()
+            web_driver.close_current_tab()
 
             # # 关闭当前窗口
             # # 获取当前所有打开的标签页的句柄

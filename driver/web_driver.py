@@ -42,8 +42,7 @@ class WebDriver:
 
     # switch to main window
     def close_switch_to_main_window(self):
-        if len(self.driver.window_handles) > 1:
-            self.driver.close()
+        self.close_current_tab()
         self.driver.switch_to.window(self.driver.window_handles[0])
 
     def execute_script(self, script, *args):
@@ -52,5 +51,6 @@ class WebDriver:
     def execute_click(self, element):
         self.execute_script(Config.JsScript.Click, element)
 
-    def close(self):
-        self.driver.close()
+    def close_current_tab(self):
+        if len(self.driver.window_handles) > 1:
+            self.driver.close()
