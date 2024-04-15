@@ -17,7 +17,7 @@ chrome_options = Options()
 chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
 
 # 指定ChromeDriver路径
-chrome_driver_path = 'D:/data/chrome/chromedriver-win64/chromedriver-win64/chromedriver.exe'
+chrome_driver_path = 'D:/data/chrome/chromedriver-win64/chromedriver.exe'
 
 # 设置Service
 service = Service(executable_path=chrome_driver_path)
