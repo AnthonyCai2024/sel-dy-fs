@@ -6,3 +6,6 @@ class Config:
     class JsScript:
         SCROLL_DOWN = "window.scrollBy(0, 100);"
         Click = "arguments[0].click();"
+
+    class My:
+        MY_FOLLOWER_URL = 'https://www.douyin.com/follow'
