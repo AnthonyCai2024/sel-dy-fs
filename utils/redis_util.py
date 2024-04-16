@@ -10,3 +10,8 @@ def add_set(key, value: set):
 
 def get_set(key):
     return r.smembers(key)
+
+
+# remove set
+def remove_set(key, value):
+    r.srem(key, value)
