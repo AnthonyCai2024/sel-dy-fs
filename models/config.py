@@ -1,6 +1,9 @@
 class Config:
     class Watch:
         WATCH_LIST_SELECTOR = '.hY8lWHgA'
+        WATCH_LIST_XPATH = "//div[@data-e2e='comment-item']//div//a"
+        # WATCH_LIST_XPATH = "//a[@class='hY8lWHgA']"
+        # WATCH_LIST_XPATH = "//div[@class='xzjbH9pV']//div//href"
         USER_LINK_PATTERN = 'https://www.zhihu.com/people/.*'
 
     class JsScript:
