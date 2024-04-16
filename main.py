@@ -1,8 +1,6 @@
-from time import sleep
-
 from driver.watcher import Watcher
 from driver.web_driver import WebDriver
-from models.config import Config
+from my.follow import Follow
 from utils.argument_parser import parse_arguments
 from utils.reg_filter import RegFilter
 
@@ -15,6 +13,11 @@ if __name__ == '__main__':
     watcher = Watcher()
     # get url
     web_driver.get_url(url)
+
+    # get follow
+    followers = Follow.get_live_followers(web_driver)
+
+    exit()
 
     sleep(2)
     # todo scroll down

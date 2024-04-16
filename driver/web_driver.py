@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 from models.config import Config
 
@@ -77,3 +79,15 @@ class WebDriver:
                                        "[style*='flex:1;display:flex;flex-direction:column;overflow-y:scroll;']")
 
         self.execute_script('arguments[0].scrollBy(0, 500);', div)
+
+    def web_driver_wait(self, element_id: str, by: By = By.CSS_SELECTOR, timeout: int = 10):
+        try:
+            # 等待直到元素可见，超时时间为10秒
+            element = WebDriverWait(self.driver, timeout).until(
+                EC.visibility_of_element_located((str(by), element_id))
+            )
+
+            return element
+        except Exception as e:
+            print(f'element not found:', e)
+            return None

@@ -1,5 +1,3 @@
-from time import sleep
-
 from driver.web_driver import WebDriver
 from models.config import Config
 
@@ -9,15 +7,17 @@ class Follow:
     def get_followers(self, web_driver: WebDriver):
         pass
 
-    def get_live_followers(self, web_driver: WebDriver):
+    @staticmethod
+    def get_live_followers(web_driver: WebDriver):
         # goto  https://www.douyin.com/follow
-        driver = web_driver.get_url(Config.My.MY_FOLLOWER_URL)
+        my_follow = web_driver.get_url(Config.My.MY_FOLLOWER_URL)
 
-        sleep(2.3)
-
-
+        # wait uDQ4oF5W
+        visible = web_driver.web_driver_wait(Config.My.MY_LIVE_VISIBLE, timeout=6)
+        if visible:
+            elements = web_driver.find_elements(Config.My.MY_LIVE_SELECTOR)
+            if elements:
+                print(f'elements:', elements)
 
     def get_all_followers(self, web_driver: WebDriver):
         pass
-
-

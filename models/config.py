@@ -9,3 +9,6 @@ class Config:
 
     class My:
         MY_FOLLOWER_URL = 'https://www.douyin.com/follow'
+        MY_LIVE_VISIBLE = '.uDQ4oF5W'
+        MY_LIVE_SELECTOR = '.O3nblU7_.Y_XxfAMJ'
+        MY_FOLLOWER_VISIBLE = '.VNh_i0AV'
