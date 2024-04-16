@@ -1,3 +1,4 @@
+import random
 import time
 
 from selenium import webdriver
@@ -82,6 +83,13 @@ class WebDriver:
                                        "[style*='flex:1;display:flex;flex-direction:column;overflow-y:scroll;']")
 
         self.execute_script('arguments[0].scrollBy(0, 500);', div)
+
+    def page_down_times(self, times: int):
+        for i in range(times):
+            self.page_down()
+            # random sleep 0.5<x<0.9
+            random_sleep = random.random() * 0.4 + 0.5
+            time.sleep(random_sleep)
 
     def web_driver_wait(self, element_id: str, timeout: int = 10):
         try:
