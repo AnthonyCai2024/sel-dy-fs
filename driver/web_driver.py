@@ -39,6 +39,9 @@ class WebDriver:
     def find_elements(self, value, by=By.CSS_SELECTOR):
         return self.driver.find_elements(by, value)
 
+    def find_elements_xpath(self, value):
+        return self.driver.find_elements(By.XPATH, value)
+
     def switch_to_latest_window(self):
         # 遍历所有窗口句柄，切换到最新的窗口
         for window_handle in self.driver.window_handles:
@@ -80,11 +83,11 @@ class WebDriver:
 
         self.execute_script('arguments[0].scrollBy(0, 500);', div)
 
-    def web_driver_wait(self, element_id: str, by: By = By.CSS_SELECTOR, timeout: int = 10):
+    def web_driver_wait(self, element_id: str, timeout: int = 10):
         try:
             # 等待直到元素可见，超时时间为10秒
             element = WebDriverWait(self.driver, timeout).until(
-                EC.visibility_of_element_located((str(by), element_id))
+                EC.visibility_of_element_located((By.XPATH, element_id))
             )
 
             return element

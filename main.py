@@ -15,7 +15,8 @@ if __name__ == '__main__':
     web_driver.get_url(url)
 
     # get follow
-    followers = Follow.get_live_followers(web_driver)
+    # live = Follow.get_live_followers(web_driver)
+    follow = Follow.get_all_followers(web_driver)
 
     exit()
 
